@@ -5,6 +5,7 @@ const {
   updateTask,
   deleteTask,
   toggleTaskCompletion,
+  getDueSoonTasks,
 } = require('../services/taskService');
 
 /**
@@ -197,4 +198,43 @@ const toggle = async (req, res, next) => {
   }
 };
 
-module.exports = { create, getAll, getById, update, remove, toggle };
+/**
+ * @swagger
+ * /api/tasks/due-soon:
+ *   get:
+ *     summary: Get tasks due within 24 hours
+ *     tags: [Tasks]
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200:
+ *         description: List of tasks due soon
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id: { type: string }
+ *                   title: { type: string }
+ *                   description: { type: string }
+ *                   category: { type: string }
+ *                   deadline: { type: string, format: date-time }
+ *                   completed: { type: boolean }
+ *                   user: { type: string }
+ *                   createdAt: { type: string, format: date-time }
+ *                   updatedAt: { type: string, format: date-time }
+ *                   isDueSoon: { type: boolean }
+ *                   hoursRemaining: { type: integer, description: Hours until deadline }
+ *       401: { description: Unauthorized }
+ */
+const getDueSoon = async (req, res, next) => {
+  try {
+    const tasks = await getDueSoonTasks(req.user.id);
+    res.status(200).json(tasks);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, getAll, getById, update, remove, toggle, getDueSoon };

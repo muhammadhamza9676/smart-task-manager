@@ -58,6 +58,21 @@ const toggleTaskCompletion = async (taskId, userId) => {
   return task;
 };
 
+const getDueSoonTasks = async (userId) => {
+  const now = new Date();
+  const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+  const tasks = await Task.find({
+    user: userId,
+    deadline: { $gte: now, $lte: new Date(now.getTime() + oneDay) },
+    completed: false, // Exclude completed tasks
+  }).sort({ deadline: 1 });
+
+  return tasks.map(task => ({
+    ...task.toJSON(),
+    hoursRemaining: Math.floor((task.deadline - now) / (60 * 60 * 1000)), // Hours until deadline
+  }));
+};
+
 module.exports = {
   createTask,
   getTasks,
@@ -65,4 +80,5 @@ module.exports = {
   updateTask,
   deleteTask,
   toggleTaskCompletion,
+  getDueSoonTasks,
 };
