@@ -42,11 +42,20 @@ app.use('/api/tasks', taskRoutes);
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  connectDB(); // Connect to MongoDB
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to connect to DB', err);
+    process.exit(1);
+  }
+};
+
+startServer();
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
