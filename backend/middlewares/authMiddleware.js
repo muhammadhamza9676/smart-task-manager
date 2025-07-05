@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
   const token = authHeader.replace('Bearer ', '');
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Attach user data (id, email) to request
+    req.user = decoded;
     next();
   } catch (error) {
     throw new CustomError('Invalid or expired token', 401);
