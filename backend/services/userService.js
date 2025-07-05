@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const CustomError = require('../utils/authUtils');
+const {CustomError} = require('../utils/authUtils');
 
 const registerUser = async ({ email, password, name }) => {
   const existingUser = await User.findOne({ email });

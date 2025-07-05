@@ -4,6 +4,8 @@ A full stack task management web application. This productivity focused app incl
 
 ---
 
+## Live WEb App Link : https://smart-task-manager-app.vercel.app/
+
 ## 🚀 Features
 
 ### Frontend (React + Tailwind CSS)
@@ -31,17 +33,23 @@ A full stack task management web application. This productivity focused app incl
 1. **Clone the repo**
 
    git clone https://github.com/muhammadhamza9676/smart-task-manager.git
+
    cd smart-task-manager
 
 2. **Backend Setup**
 cd backend
+
 npm install
+
 cp .env.example .env  # create .env file with MONGO_URI, JWT_SECRET.
+
 npm run dev
 
 3. **Frontend Setup**
 cd frontend
+
 npm install
+
 npm run dev
 
 ### Improvements If We Had More Time

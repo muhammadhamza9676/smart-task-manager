@@ -1,5 +1,6 @@
 const { registerUser, loginUser } = require('../services/userService');
 const { generateToken } = require('../utils/authUtils');
+const {CustomError} = require('../utils/authUtils');
 
 /**
  * @swagger
