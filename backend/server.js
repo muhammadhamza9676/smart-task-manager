@@ -10,6 +10,7 @@ const taskRoutes = require('./routes/taskRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 
 dotenv.config();
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
